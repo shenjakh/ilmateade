@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Button from '@mui/material/Button';
+import LocationsTable from './Components/Table';
+import CityTable from './Components/CityTable';
+import LinnaCard from './Components/Card';
 
 function App() {
+  const [selectedLocation, setSelectedLocation] = useState(null);
+
+  const handleBackButtonClick = () => {
+    setSelectedLocation(null);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1 style={{ textAlign: 'center', margin: '2em 0', color: '#2D3E40' }}>
+        {selectedLocation ? selectedLocation.name : 'Ilma teade'}
+      </h1>
+      {/* <LinnaCard /> */}
+      {selectedLocation ? (
+        <CityTable selectedLocation={selectedLocation} />
+      ) : (
+        <LocationsTable setSelectedLocation={setSelectedLocation} />
+      )}
+
+      {selectedLocation && (
+        <Button
+          variant="contained"
+          onClick={handleBackButtonClick}
+          style={{ backgroundColor: '#387373', margin: '1em' }}>
+          Tagasi
+        </Button>
+      )}
     </div>
   );
 }
