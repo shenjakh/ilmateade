@@ -2,13 +2,18 @@ import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import LocationsTable from './Components/Table';
 import CityTable from './Components/CityTable';
-import LinnaCard from './Components/Card';
+import ModalCoordinates from './Components/ModalCoordinates';
+import SearchHandler from './Components/SearchHandler';
 
 function App() {
   const [selectedLocation, setSelectedLocation] = useState(null);
 
   const handleBackButtonClick = () => {
     setSelectedLocation(null);
+  };
+
+  const handleSearch = ({ kohanimi, lat, lon }) => {
+    SearchHandler({ kohanimi, lat, lon, setSelectedLocation });
   };
 
   return (
@@ -31,6 +36,7 @@ function App() {
           Tagasi
         </Button>
       )}
+      {!selectedLocation && <ModalCoordinates onSearch={handleSearch} />}
     </div>
   );
 }
